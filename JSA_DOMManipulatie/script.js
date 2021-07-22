@@ -1,31 +1,38 @@
 const btns = document.querySelectorAll(".big-five-button");
 const newLi = document.createElement("li");
 const luAsParent = document.querySelector("#spotted-animals-list");
-console.log(newLi); //<li></li>
+// console.log(newLi); //<li></li>
 
-//Stap 1: event aan buttons
-// btns.addEventListener("click",XXX );
-
-// //Stap 2: function on click
-const addNewAnimal = () => {
-  newLi.classList.add("spotted-animals-list-items");
-  newLi.innerHTML = animal;
-  luAsParent.appendChild(newLi);
+//Deel 1 -Stap 2: functie wanneer er geklikt wordt
+const addNewAnimal = (event) => {
+  //Stap 3: met (event) koppeling maken
+  newLi.classList.add("spotted-animals-list-item"); //class meegeven aan nieuwe list item
+  newLi.innerHTML = event.target.innerHTML; //stap 4: specifieke waarde meegeven aan nieuwe list item
+  luAsParent.appendChild(newLi); //stap 7: nieuwe list item  aan parent koppelen
+  // console.log(newLi);
 };
-// console.log(luAsParent); //<lu id=.....</lu>
 
-// //Stap 3: event aan functie koppelen elke button
-// btns.forEach(button => addEventListener("click", addNewAnimal));
-
-//stap 4: toegang tot waardes
+//Deel 1 - Stap 1: event toevoegen aan alle buttons apart!
 btns.forEach((button) => {
-  let animal = button.innerHTML;
-  console.log(animal);
+  button.addEventListener("click", addNewAnimal);
 });
 
-btns.forEach((button2) => {
-  button2.addEventListener("click", (newLiValue) => {
-    addNewAnimal(animal);
-    console.log(newLiValue);
-  });
-});
+//Deel 2 - Remove first
+const buttonRemove = document.querySelector("#remove-first-item-button");
+const parent = document.querySelector("#spotted-animals-list");
+const child = document.querySelector(".spotted-animals-list-item");
+// console.log(parent);
+
+const removeFirst = () => {
+  parent.removeChild(child);
+};
+buttonRemove.addEventListener("click", removeFirst);
+
+//Deel 3 - Remove all
+const buttonAllRemove = document.querySelector("#remove-all-button");
+// console.log(buttonAllRemove);
+const removeAll = () => {
+  parent.innerHTML = " ";
+};
+
+buttonAllRemove.addEventListener("click", removeAll);
